@@ -22,13 +22,12 @@ jobs:
     needs: [job_1]
     steps:
       - name: Postar um comentário
-      env:
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
-      run:
-        COMMENT="Este é um comentário agendado que será postado a cada hora, até o dia 06/07/2024."
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          COMMENT="Este é um comentário agendado que será postado a cada hora, até o dia 06/07/2024."
           ISSUE_NUMBER=1  # Número da issue que será comentado
-
           curl -H "Authorization: token $GH_TOKEN" \
                -H "Accept: application/vnd.github.v3+json" \
-               https://api.github.com/repos/adelitab/github-actions-dotnet-webapp/issues/1/comments \
+               https://api.github.com/repos/adelitab/github-actions-dotnet-webapp/issues/${ISSUE_NUMBER}/comments \
                -d "{\"body\": \"$COMMENT\"}"
